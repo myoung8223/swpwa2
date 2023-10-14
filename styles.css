@@ -1,0 +1,58 @@
+.stopwatch {
+    text-align: center;
+    padding: 20px;
+}
+	
+button {
+	font-size: 1.5em;
+    margin: 10px;
+    padding: 10px 20px;
+}
+
+#display {
+    font-size: 4em;
+	font-family: "Courier New", "Lucida Console", monospace;
+	font-weight: bold;
+}
+
+#laps {
+	width: 100%;
+	display: flex;     /* use flexbox layout */
+    flex-wrap: wrap;           /* allow items to wrap to the next line */
+	justify-content: center;
+
+}
+
+.lapnum1 {
+    font-size: 1em;
+	font-family: "Courier New", "Lucida Console", monospace;
+}
+
+.lapnum2 {
+    font-size: 2em;
+	font-family: "Courier New", "Lucida Console", monospace;
+	font-weight: bold;
+}
+
+#instr {
+    font-size: 1em;
+	font-family: sans-serif;
+}
+
+.box1 {
+    border: 2px solid black;   /* adds a border around the div */
+    padding: 5px;              /* adds space inside the div, between the content and the border */
+    margin: 5px;                 /* adds space outside the div, between the div and other elements */
+    background-color: #e0e0e0;                  /* sets a background color for the div */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   /* adds a subtle shadow to the div */
+	display: inline-block;
+}
+
+.box2 {
+    border: 1px solid black;   /* adds a border around the div */
+    padding: 2px;              /* adds space inside the div, between the content and the border */
+    margin: 2px;                 /* adds space outside the div, between the div and other elements */
+    background-color: #e0e0e0;                  /* sets a background color for the div */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   /* adds a subtle shadow to the div */
+	display: inline-block;
+}

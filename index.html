@@ -1,0 +1,46 @@
+<!-- 
+Stopwatch PWA
+Created by ChatGPT (GPT-4), prompted by Mike Young - Oct. 11, 2023
+Version 6 - Oct 14, 2023
+Modifications made by Mike Young:
+ * Using performance.now() instead of Date.now() for millisecond precision and display
+ * Optional keyboard control
+ * Displaying laps more cleanly
+ * Optional sound effects
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="/stopwatch/manifest.json">
+</head>
+
+<body>
+    <div class="stopwatch">
+        <div id="display" class="box1">00:00.000</div>
+        <div>
+		<button id="startStop">Start</button>
+        <button id="lap">Lap</button>
+        <button id="reset">Reset</button>
+		<button id="audio">🔊</button>
+		</div>
+		<div id="instr"><div class="box2">Space</div>: Start/Stop/Resume &nbsp;&nbsp;&nbsp; <div class="box2">Left Ctrl</div>: Lap &nbsp;&nbsp;&nbsp; <div class="box2">Enter</div>: Reset</div>
+    </div>
+    <div id="laps"></div>
+	
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/stopwatch/service-worker.js');
+            });
+        }
+    </script>
+	
+    <script src="service-worker.js"></script>
+    <script src="stopwatch.js"></script>
+</body>
+</html>
