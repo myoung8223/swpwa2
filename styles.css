@@ -2,15 +2,15 @@
     text-align: center;
     padding: 20px;
 }
-	
+
 button {
 	font-size: 1.5em;
-    margin: 10px;
-    padding: 10px 20px;
+	margin: 10px;
+	padding: 10px 20px;
 }
 
 #display {
-    font-size: 4em;
+	font-size: 4em;
 	font-family: "Courier New", "Lucida Console", monospace;
 	font-weight: bold;
 }
@@ -55,4 +55,68 @@ button {
     background-color: #e0e0e0;                  /* sets a background color for the div */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   /* adds a subtle shadow to the div */
 	display: inline-block;
+}
+
+/* CSS rules for mobile devices */
+@media (max-width: 768px) {
+
+.stopwatch {
+    text-align: center;
+    padding: 20px;
+}
+
+button {
+	font-size: 0.75em;
+	margin: 5px;
+	padding: 5px 10px;
+}
+
+#display {
+	font-size: 2em;
+	font-family: "Courier New", "Lucida Console", monospace;
+	font-weight: bold;
+}
+
+#laps {
+	width: 100%;
+	display: flex;     /* use flexbox layout */
+    flex-wrap: wrap;           /* allow items to wrap to the next line */
+	justify-content: center;
+
+}
+
+.lapnum1 {
+    font-size: 0.5em;
+	font-family: "Courier New", "Lucida Console", monospace;
+}
+
+.lapnum2 {
+    font-size: 1em;
+	font-family: "Courier New", "Lucida Console", monospace;
+	font-weight: bold;
+}
+
+#instr {
+    font-size: 0.5em;
+	font-family: sans-serif;
+}
+
+.box1 {
+    border: 1px solid black;   /* adds a border around the div */
+    padding: 2.5px;              /* adds space inside the div, between the content and the border */
+    margin: 2.5px;                 /* adds space outside the div, between the div and other elements */
+    background-color: #e0e0e0;                  /* sets a background color for the div */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   /* adds a subtle shadow to the div */
+	display: inline-block;
+}
+
+.box2 {
+    border: 0.5px solid black;   /* adds a border around the div */
+    padding: 1px;              /* adds space inside the div, between the content and the border */
+    margin: 1px;                 /* adds space outside the div, between the div and other elements */
+    background-color: #e0e0e0;                  /* sets a background color for the div */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);   /* adds a subtle shadow to the div */
+	display: inline-block;
+}
+
 }
