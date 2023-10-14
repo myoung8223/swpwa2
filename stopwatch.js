@@ -28,6 +28,7 @@ var beep4 = new Audio('beep4.wav');   // initialize beep4
 		
 window.onload = function() {         // when the window loads
     setInterval(updateDisplay, 1);   // set updateDisplay to start and run every millisecond
+    audioButton.textContent = '🔈';   // set audio button text to muted Unicode character on load
 };
 
 // event listener for start/stop/resume button click
