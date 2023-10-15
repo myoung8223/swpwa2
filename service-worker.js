@@ -7,10 +7,10 @@ const FILES_TO_CACHE = [
     './icon.png',
     './styles.css',
     './stopwatch.js',
-    './beep1.wav',
-    './beep2.wav',
-    './beep3.wav',
-    './beep4.wav'
+    './beep1.mp3',
+    './beep2.mp3',
+    './beep3.mp3',
+    './beep4.mp3'
 ];
 
 // cache the files on install
