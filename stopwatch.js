@@ -3,8 +3,8 @@
 let startTime;         // start time of the stopwatch in milliseconds (getting milliseconds value from performance.now())
 let elapsedTime = 0;   // initialize elapsed time to 0 (in milliseconds)
 let running = 0;        // running flag, 0: stopwatch not running, 1: stopwatch running
-let audioEnabled = 0;   // 0: audio not enabled, 1: audio enabled
-let lapNum = 0;         // lap number
+let audioEnabled;   // = 0;   // 0: audio not enabled, 1: audio enabled
+let lapNum = 0;         // lap number, initialize to 0
 
 // keyboard flags
 var spacePressed = 0;   // initialize spacePressed flag to 0, as [Space] not pressed
@@ -27,8 +27,20 @@ var beep3 = new Audio('beep3.wav');   // initialize beep3
 var beep4 = new Audio('beep4.wav');   // initialize beep4
 		
 window.onload = function() {         // when the window loads
-    setInterval(updateDisplay, 1);   // set updateDisplay to start and run every millisecond
-    audioButton.textContent = '🔈';   // set audio button text to muted Unicode character on load
+	setInterval(updateDisplay, 1);   // set updateDisplay to start and run every millisecond
+
+	audioEnabled = parseInt(localStorage.getItem('audioEnabled'));   // attempt to load audioEnabled from local storage
+	if (audioEnabled == NaN) {                                       // if audioEnabled is NaN from getting null from the load attempt
+		audioEnabled = 0;        // then initialize audioEnabled to 0
+	}
+	if (audioEnabled == 1) {              // if audio enabled
+		audioButton.textContent = '🔊';   // set audio button text to unmuted Unicode character on load	
+	}
+	else {                  // else for all other values
+		audioEnabled = 0;                // set audio to disabled
+		audioButton.textContent = '🔈';   // set audio button text to muted Unicode character on load	
+	}
+	localStorage.setItem('audioEnabled', audioEnabled.toString());   // set value in local storage
 };
 
 // event listener for start/stop/resume button click
@@ -38,67 +50,69 @@ startStopButton.addEventListener('click', () => {   // if start/stop/resume butt
 			beep1.play();          // play beep 1
 		}
 		running = 0;                               // set running flag to 0, as stopwatch was just set to stop
-        startStopButton.textContent = 'Resume';    // change button text to "Resume", as it was running before
-    }
+		startStopButton.textContent = 'Resume';    // change button text to "Resume", as it was running before
+	}
 	else {                         // else stopwatch not running
 		if (audioEnabled == 1) {   // if audio is enabled
 			beep2.play();          // play beep 2
 		}
-        startTime = performance.now() - elapsedTime;   // set startTime to current time (in milliseconds) minus elapsedTime (last time when stopwatch was stopped, if at all)
+		startTime = performance.now() - elapsedTime;   // set startTime to current time (in milliseconds) minus elapsedTime (last time when stopwatch was stopped, if at all)
 		startStopButton.textContent = 'Stop';          // change button text to "Stop", as the stopwatch will be running
 		running = 1;                            // set running flag to 1, as stopwatch was just set to run
-    }
+	}
 });
 document.getElementById('startStop').addEventListener('keydown', function(event) {   // prevent start/stop/resume button from being engaged by [Space] or [Enter], as that leads to problems
-    if (event.code === 'Space' || event.code === 'Enter') {                          // if [Space] or [Enter] pressed to engage the start/stop/resume button
-        event.preventDefault();                               // prevent that default action
-    }
+	if (event.code === 'Space' || event.code === 'Enter') {                          // if [Space] or [Enter] pressed to engage the start/stop/resume button
+		event.preventDefault();                               // prevent that default action
+	}
 });
 
 // event listener for audio button click
 audioButton.addEventListener('click', () => {   // if audio button clicked on
 	if (audioEnabled == 0) {                    // if audio not enabled
 		audioEnabled = 1;                 // enable audio
-        audioButton.textContent = '🔊';   // change audio button to a 🔊 Unicode symbol
-    }
+		audioButton.textContent = '🔊';                                  // change audio button to a 🔊 Unicode symbol
+		localStorage.setItem('audioEnabled', audioEnabled.toString());   // set value in local storage
+	}
 	else {                  // else audio enabled
-		audioEnabled = 0;                  // disable audio
-        audioButton.textContent = '🔈';   // change audio button to a 🔈 Unicode symbol
-    }
+		audioEnabled = 0;                 // disable audio
+		audioButton.textContent = '🔈';                                   // change audio button to a 🔈 Unicode symbol
+		localStorage.setItem('audioEnabled', audioEnabled.toString());   // set value in local storage
+	}
 });
 document.getElementById('audio').addEventListener('keydown', function(event) {   // prevent audio mute/unmute button from being engaged by [Space] or [Enter], as that leads to problems
-    if (event.code === 'Space' || event.code === 'Enter') {                      // if [Space] or [Enter] pressed to engage the start/stop/resume button
-        event.preventDefault();                               // prevent that default action
-    }
+	if (event.code === 'Space' || event.code === 'Enter') {                      // if [Space] or [Enter] pressed to engage the start/stop/resume button
+		event.preventDefault();                               // prevent that default action
+	}
 });
 
 // event listener for key presses
 window.addEventListener('keydown', () => {   // if a key was pressed
-    if (event.code === 'Space') {            // if [Space] pressed
-        spacePressed = 1;           // set [Space] pressed flag to 1
-    }
-    if (event.code === 'ControlLeft') {   // if [Left Ctrl] pressed
-        leftCtrlPressed = 1;              // set [Left Ctrl] pressed flag to 1
-    }
+	if (event.code === 'Space') {            // if [Space] pressed
+		spacePressed = 1;           // set [Space] pressed flag to 1
+	}
+	if (event.code === 'ControlLeft') {   // if [Left Ctrl] pressed
+		leftCtrlPressed = 1;              // set [Left Ctrl] pressed flag to 1
+	}
     if (event.code === 'Enter') {   // if [Enter] pressed
-        enterPressed = 1;           // set [Enter] pressed flag to 1
-    }
+		enterPressed = 1;           // set [Enter] pressed flag to 1
+	}
 });
 
 // event listener for key releases
 window.addEventListener('keyup', () => {   // if a key was released
-    if (event.code === 'Space') {          // if [Space] released
-        spacePressed = 0;           // set [Space] pressed flag to 0
+	if (event.code === 'Space') {          // if [Space] released
+		spacePressed = 0;           // set [Space] pressed flag to 0
 		spaceReady = 1;     // set [Space] ready to be pressed flag to 1
-    }
-    if (event.code === 'ControlLeft') {   // if [Left Ctrl] released
-        leftCtrlPressed = 0;              // set [Left Ctrl] pressed flag to 0
+	}
+	if (event.code === 'ControlLeft') {   // if [Left Ctrl] released
+		leftCtrlPressed = 0;              // set [Left Ctrl] pressed flag to 0
 		leftCtrlReady = 1;     // set [Left Ctrl] ready to be pressed flag to 1
-    }
-    if (event.code === 'Enter') {   // if [Enter] released
-        enterPressed = 0;           // set [Enter] pressed flag to 0
+	}
+	if (event.code === 'Enter') {   // if [Enter] released
+		enterPressed = 0;           // set [Enter] pressed flag to 0
 		enterReady = 1;     // set [Enter] ready to be pressed flag to 1
-    }
+	}
 });
 
 // event listener for lap button click
@@ -122,9 +136,9 @@ lapButton.addEventListener('click', () => {   // if lap button clicked
 	laps.appendChild(outerElement);            // append outer div to laps
 });
 document.getElementById('lap').addEventListener('keydown', function(event) {   // prevent lap button from being engaged by [Space] or [Enter] as that leads to issues
-    if (event.code === 'Space' || event.code === 'Enter') {                    // if [Space] or [Enter] pressed to engage the lap button
-        event.preventDefault();                               // prevent that default action
-    }
+	if (event.code === 'Space' || event.code === 'Enter') {                    // if [Space] or [Enter] pressed to engage the lap button
+		event.preventDefault();                               // prevent that default action
+	}
 });
 
 // event listener for reset button click
@@ -132,17 +146,17 @@ resetButton.addEventListener('click', () => {   // if reset button clicked
 	if (audioEnabled == 1) {                    // if audio enabled
 		beep4.play();          // play beep 4
 	}
-    elapsedTime = 0;                     // reset elapsed time to 0
-    display.textContent = '00:00.000';       // set stopwatch display text to "00:00.000"
-    startStopButton.textContent = 'Start';   // set start/stop/resume button to say "Start"
-    lapsContainer.innerHTML = '';            // clear laps divs
+	elapsedTime = 0;                     // reset elapsed time to 0
+	display.textContent = '00:00.000';       // set stopwatch display text to "00:00.000"
+	startStopButton.textContent = 'Start';   // set start/stop/resume button to say "Start"
+	lapsContainer.innerHTML = '';            // clear laps divs
 	running = 0;                    // set running flag to 0, as stopwatch was just reset
 	lapNum = 0;    // reset lap count to 0
 });
 document.getElementById('reset').addEventListener('keydown', function(event) {   // prevent reset button from being engaged by [Space] or [Enter] as that leads to issues
-    if (event.code === 'Space' || event.code === 'Enter') {                      // if [Space] or [Enter] pressed to engage the reset button
-        event.preventDefault();                               // prevent that default action
-    }
+	if (event.code === 'Space' || event.code === 'Enter') {                      // if [Space] or [Enter] pressed to engage the reset button
+		event.preventDefault();                               // prevent that default action
+	}
 });
 
 function updateDisplay() {   // updateDisplay function
@@ -151,7 +165,7 @@ function updateDisplay() {   // updateDisplay function
 		elapsedTime = performance.now() - startTime;     // set elapsed time to current time minus startTime
 		display.textContent = formatTime(elapsedTime);   // update display text with formatted time counted so far
 	}
-	
+
 	if ((spacePressed == 1) && (spaceReady == 1)) {   // if [Space] pressed and ready to be pressed
 		spaceReady = 0;                               // set [Space] no longer ready to be pressed (until released)
 		if (running == 1) {            // if stopwatch is running
@@ -209,8 +223,8 @@ function updateDisplay() {   // updateDisplay function
 
 // given milliseconds, return a string of that millisecond count formatted as "00:00.000"
 function formatTime(timeInMilliseconds) {
-    const minutes = Math.floor(timeInMilliseconds / 60000);
-    const seconds = Math.floor((timeInMilliseconds % 60000) / 1000);
-    const msecs = Math.floor(timeInMilliseconds % 1000);
-    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(msecs).padStart(3, '0')}`;
+	const minutes = Math.floor(timeInMilliseconds / 60000);
+	const seconds = Math.floor((timeInMilliseconds % 60000) / 1000);
+	const msecs = Math.floor(timeInMilliseconds % 1000);
+	return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}.${String(msecs).padStart(3, '0')}`;
 }
