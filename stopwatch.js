@@ -21,10 +21,10 @@ const resetButton = document.getElementById('reset');    // get reset button ele
 const lapsContainer = document.getElementById('laps');   // get laps container element
 const audioButton = document.getElementById('audio');    // get start/stop button element
 
-var beep1 = new Audio('beep1.wav');   // initialize beep1
-var beep2 = new Audio('beep2.wav');   // initialize beep2
-var beep3 = new Audio('beep3.wav');   // initialize beep3
-var beep4 = new Audio('beep4.wav');   // initialize beep4
+var beep1 = new Audio('beep1.mp3');   // initialize beep1
+var beep2 = new Audio('beep2.mp3');   // initialize beep2
+var beep3 = new Audio('beep3.mp3');   // initialize beep3
+var beep4 = new Audio('beep4.mp3');   // initialize beep4
 		
 window.onload = function() {         // when the window loads
 	setInterval(updateDisplay, 1);   // set updateDisplay to start and run every millisecond
