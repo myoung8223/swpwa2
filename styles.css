@@ -66,13 +66,13 @@ button {
 }
 
 button {
-	font-size: 0.75em;
+	font-size: 1em;
 	margin: 5px;
 	padding: 5px 10px;
 }
 
 #display {
-	font-size: 2em;
+	font-size: 3em;
 	font-family: "Courier New", "Lucida Console", monospace;
 	font-weight: bold;
 }
@@ -86,23 +86,23 @@ button {
 }
 
 .lapnum1 {
-    font-size: 0.5em;
+    font-size: 0.75em;
 	font-family: "Courier New", "Lucida Console", monospace;
 }
 
 .lapnum2 {
-    font-size: 1em;
+    font-size: 1.5em;
 	font-family: "Courier New", "Lucida Console", monospace;
 	font-weight: bold;
 }
 
 #instr {
-    font-size: 0.5em;
+    font-size: 0.75em;
 	font-family: sans-serif;
 }
 
 .box1 {
-    border: 1px solid black;   /* adds a border around the div */
+    border: 1.5px solid black;   /* adds a border around the div */
     padding: 2.5px;              /* adds space inside the div, between the content and the border */
     margin: 2.5px;                 /* adds space outside the div, between the div and other elements */
     background-color: #e0e0e0;                  /* sets a background color for the div */
@@ -111,7 +111,7 @@ button {
 }
 
 .box2 {
-    border: 0.5px solid black;   /* adds a border around the div */
+    border: 0.75px solid black;   /* adds a border around the div */
     padding: 1px;              /* adds space inside the div, between the content and the border */
     margin: 1px;                 /* adds space outside the div, between the div and other elements */
     background-color: #e0e0e0;                  /* sets a background color for the div */
