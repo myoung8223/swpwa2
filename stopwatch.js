@@ -2,9 +2,10 @@
 
 let startTime;         // start time of the stopwatch in milliseconds (getting milliseconds value from performance.now())
 let elapsedTime = 0;   // initialize elapsed time to 0 (in milliseconds)
-let running = 0;        // running flag, 0: stopwatch not running, 1: stopwatch running
-let audioEnabled;   // = 0;   // 0: audio not enabled, 1: audio enabled
-let lapNum = 0;         // lap number, initialize to 0
+let running = 0;       // running flag, 0: stopwatch not running, 1: stopwatch running
+let audioEnabled;   // 0: audio not enabled, 1: audio enabled
+let lapNum = 0;        // lap number, initialize to 0
+let lastLapTime = 0;   // last lap time, in milliseconds, for displaying lap delta
 
 // keyboard flags
 var spacePressed = 0;   // initialize spacePressed flag to 0, as [Space] not pressed
@@ -57,7 +58,10 @@ startStopButton.addEventListener('click', () => {   // if start/stop/resume butt
 			beep2.play();          // play beep 2
 		}
 		startTime = performance.now() - elapsedTime;   // set startTime to current time (in milliseconds) minus elapsedTime (last time when stopwatch was stopped, if at all)
-		startStopButton.textContent = 'Stop';          // change button text to "Stop", as the stopwatch will be running
+		if (elapsedTime == 0) {                        // if elapsed time is 0
+			lastLapTime = 0;      // then set last lap time to 0
+		}
+		startStopButton.textContent = 'Stop';   // change button text to "Stop", as the stopwatch will be running
 		running = 1;                            // set running flag to 1, as stopwatch was just set to run
 	}
 });
@@ -126,8 +130,9 @@ lapButton.addEventListener('click', () => {   // if lap button clicked
 	outerElement.className = 'box1';                     // set outer element box1 in style
 	var innerElement1 = document.createElement('div');   // create inner div element 1 to encapsulate lap number
 	var innerElement2 = document.createElement('div');   // create inner div element 2 to encapsulate lap time
-	innerElement1.className = 'lapnum1';                 // set inner div element 1 to lapnum1 in style
-	let combinedText = "Lap " + lapNum;                                 // combine text of "Lap " and lap number
+	innerElement1.className = 'lapnum1';                                                       // set inner div element 1 to lapnum1 in style
+	let combinedText = "Lap " + lapNum + " (" + formatTime(elapsedTime - lastLapTime) + ")";   // combine text of "Lap " and lap number
+	lastLapTime = elapsedTime;                                                                 // make last lap time be elapsed time for next possible lap
 	innerElement1.appendChild(document.createTextNode(combinedText));   // append text node to inner div element 1
 	innerElement2.className = 'lapnum2';                                // set inner div element 2 to lapnum2 in style
 	innerElement2.appendChild(document.createTextNode(lapTime));   // append text node with lap time to inner div element 2
@@ -196,8 +201,9 @@ function updateDisplay() {   // updateDisplay function
 		outerElement.className = 'box1';                     // set outer element box1 in style
 		var innerElement1 = document.createElement('div');   // create inner div element 1 to encapsulate lap number
 		var innerElement2 = document.createElement('div');   // create inner div element 2 to encapsulate lap time
-		innerElement1.className = 'lapnum1';                 // set inner div element 1 to lapnum1 in style
-		let combinedText = "Lap " + lapNum;                                 // combine text of "Lap " and lap number
+		innerElement1.className = 'lapnum1';                                                       // set inner div element 1 to lapnum1 in style
+		let combinedText = "Lap " + lapNum + " (" + formatTime(elapsedTime - lastLapTime) + ")";   // combine text of "Lap " and lap number
+		lastLapTime = elapsedTime;                                                                 // make last lap time be elapsed time for next possible lap
 		innerElement1.appendChild(document.createTextNode(combinedText));   // append text node to inner div element 1
 		innerElement2.className = 'lapnum2';                                // set inner div element 2 to lapnum2 in style
 		innerElement2.appendChild(document.createTextNode(lapTime));   // append text node with lap time to inner div element 2
